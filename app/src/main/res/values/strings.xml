@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">JeuPoisson</string>
+    <string name="red">ROUGE</string>
+    <string name="yellow">JAUNE</string>
+    <string name="green">VERT</string>
+    <string name="blue">BLEU</string>
+    <string name="purple">VIOLET</string>
+    <string name="pink">ROSE</string>
+    <string name="orange">ORANGE</string>
+    <string name="grey">GRIS</string>
+    <string name="brown">MARRON</string>
+    <string name="white">BLANC</string>
+    <string name="black">NOIR</string>
+</resources>
