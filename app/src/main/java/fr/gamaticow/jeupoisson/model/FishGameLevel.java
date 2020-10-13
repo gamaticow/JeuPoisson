@@ -1,6 +1,7 @@
 package fr.gamaticow.jeupoisson.model;
 
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import fr.gamaticow.jeupoisson.R;
+import fr.gamaticow.jeupoisson.controller.EndGameActivity;
 import fr.gamaticow.jeupoisson.controller.GameActivity;
 
 /**
@@ -21,11 +24,17 @@ public class FishGameLevel {
     private LevelDifficulties difficulties;
     private Bucket[] buckets;
 
+    private int lives;
+    private ImageView[] hearts;
+
     private Runnable onEnd;
 
-    public FishGameLevel(GameActivity context, LevelDifficulties difficulties){
+    public FishGameLevel(GameActivity context, LevelDifficulties difficulties, LinearLayout livesLayout){
         this.context = context;
         this.difficulties = difficulties;
+        this.lives = 3;
+        this.hearts = new ImageView[lives];
+        createHearths(livesLayout);
     }
 
     public BucketsContainer initialise(LinearLayout bucketsLayout){
@@ -88,6 +97,37 @@ public class FishGameLevel {
             colors.remove(bucket.getColor());
         Collections.shuffle(colors);
         return colors.get(new Random().nextInt(colors.size()));
+    }
+
+    private void createHearths(LinearLayout layout){
+        float dp = context.getResources().getDisplayMetrics().density;
+        final int SIZE = 50;
+
+        for(int i = 0; i < hearts.length; i++){
+            ImageView heart = new ImageView(context);
+            heart.setImageResource(R.drawable.heart);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) (SIZE*dp), (int) (SIZE*dp));
+            heart.setLayoutParams(params);
+            layout.addView(heart);
+
+            hearts[i] = heart;
+        }
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void removeLife(){
+        lives--;
+        if(lives <= 0){
+            Intent intent = new Intent(context, EndGameActivity.class);
+            intent.putExtra(EndGameActivity.INTENT_STAR_NUMBER, 0);
+            context.startActivity(intent);
+            return;
+        }
+
+        hearts[lives].setImageResource(R.drawable.heart_empty);
     }
 
 }

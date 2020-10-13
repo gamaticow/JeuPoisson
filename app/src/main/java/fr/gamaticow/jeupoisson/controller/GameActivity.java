@@ -14,10 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.gamaticow.jeupoisson.R;
-import fr.gamaticow.jeupoisson.model.Bucket;
 import fr.gamaticow.jeupoisson.model.BucketsContainer;
 import fr.gamaticow.jeupoisson.model.Fish;
-import fr.gamaticow.jeupoisson.model.FishGameDrawable;
 import fr.gamaticow.jeupoisson.model.FishGameLevel;
 import fr.gamaticow.jeupoisson.model.LevelDifficulties;
 
@@ -38,11 +36,11 @@ public class GameActivity extends AppCompatActivity {
         this.fishLayout = findViewById(R.id.fish_layout);
 
         LevelDifficulties difficulties = (LevelDifficulties) getIntent().getSerializableExtra(MainActivity.EXTRA_DIFFICULTY);
-        this.level = new FishGameLevel(this, difficulties);
+        this.level = new FishGameLevel(this, difficulties, findViewById(R.id.hearts_layout));
         container = level.initialise(findViewById(R.id.buckets_layout));
         level.setOnEnd(() -> {
-            Toast.makeText(this, "Bravo !", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, EndGameActivity.class);
+            intent.putExtra(EndGameActivity.INTENT_STAR_NUMBER, level.getLives());
             startActivity(intent);
         });
     }
@@ -131,5 +129,11 @@ public class GameActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             );
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

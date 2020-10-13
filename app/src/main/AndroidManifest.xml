@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".controller.EndGameActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".controller.MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -18,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.GameActivity"
+        <activity
+            android:name=".controller.GameActivity"
             android:screenOrientation="landscape" />
     </application>
 

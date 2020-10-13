@@ -65,12 +65,11 @@ public class BucketsContainer {
         for(Bucket bucket : buckets){
             if (x+width > getBucketX(bucket) && x < getBucketX(bucket)+bucket.getLinearLayout().getWidth()/bucket.dp){
                 if(bucket.getColor() == fish.getColor()){
-                    //TODO add point
                     bucket.scorePoint();
                     checkWin();
                     return true;
                 }else{
-                    //TODO remove life
+                    level.removeLife();
                 }
             }
 
